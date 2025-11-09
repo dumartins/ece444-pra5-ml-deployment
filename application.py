@@ -68,7 +68,61 @@ threading.Thread(target=_eager_load_background, daemon=True).start()
 DEMO_HTML = """
 <!doctype html>
 <html lang="en">
-  *** write HTML for a simple demo page with a form to input text and display prediction results ***
+  <head>
+    <meta charset="utf-8">
+    <title>Text Classifier Demo</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 2rem auto;
+        max-width: 640px;
+        padding: 0 1rem;
+        line-height: 1.5;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 1rem;
+      }
+      textarea {
+        min-height: 120px;
+        padding: 0.5rem;
+        font-size: 1rem;
+      }
+      button {
+        width: 160px;
+        padding: 0.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      .info {
+        font-size: 0.9rem;
+        color: #555;
+      }
+      .error {
+        color: #b00020;
+      }
+      .prediction {
+        color: #0b6;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Text Classifier Demo</h1>
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+    {% if prediction %}
+      <p class="prediction">Prediction: {{ prediction }}</p>
+    {% endif %}
+    <form action="/predict-form" method="post">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Type text to classify..."></textarea>
+      <button type="submit">Classify</button>
+    </form>
+  </body>
 </html>
 """
 
